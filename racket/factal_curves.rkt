@@ -52,6 +52,37 @@
                 (rappend (proc (first points) (second points)) acc)))))))
   'done)
 
+;; c-curves locating func
+(define (c-curve p1 p2)
+  (let ((p3 (divide p1 p2 0.5)))
+    (list
+     p1
+     (point (+ (_x p3) (- (_y p3)(_y p2)))
+            (+ (_y p3) (- (_x p2) (_x p3)))))))
+
+;; dragon-curve locating func
+(define dragon-curve
+  (let ((n 0))
+    (lambda (p1 p2)
+      (let ((op (if (even? n) + -))
+            (p3 (divide p1 p2 0.5)))
+        (set! n (1+ n))
+        (list
+         p1
+         (point (op (_x p3) (- (_y p3) (_y p2)))
+                (op (_y p3) (- (_x p2) (_x p3)))))))))
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
