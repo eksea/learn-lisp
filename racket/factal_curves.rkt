@@ -21,6 +21,7 @@
 
 ;; (print-curve points fout)
 ;; output the points to file
+;; need test
 (define (print-curve points fout)
   (with-output-to-file fout
     (lambda ()
@@ -31,6 +32,29 @@
          (display (_y p))
          (newline))
          points))))
+
+;; test code
+(define p1 (point 1 2))
+(define p2 (point 2 3))
+(for-each
+ (lambda (p)
+   (display (_x p))
+   (display " ")
+   (display (_y p))
+   (newline))
+ (list p1 p2))
+
+;; another test
+(define print-points
+  (lambda (ps)
+    (for-each
+     (lambda (p)
+       (display (_x p))
+       (display " ")
+       (display (_y p))
+       (newline))
+     ps)))
+(print-points (list p1 p2))
 
 ;; implement of "1+"
 (define-syntax incf
@@ -66,7 +90,7 @@
     (lambda (p1 p2)
       (let ((op (if (even? n) + -))
             (p3 (divide p1 p2 0.5)))
-        (set! n (1+ n))
+        (set! n (incf n))
         (list
          p1
          (point (op (_x p3) (- (_y p3) (_y p2)))
